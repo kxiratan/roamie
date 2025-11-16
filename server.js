@@ -93,7 +93,7 @@ app.post('/generate-itinerary', async (req, res) => {
         // This is where the magic happens! We send the prompt to Claude.
         console.log('Calling Claude API...');
         const message = await anthropic.messages.create({
-            model: "claude-3-5-sonnet-20241022", // The AI model to use
+            model: "claude-sonnet-4-5-20250929", // The AI model to use
             max_tokens: 4096, // Maximum length of response
             messages: [
                 {

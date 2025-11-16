@@ -41,71 +41,9 @@ document.getElementById("userInputForm").addEventListener("submit", async functi
 
     console.log("User data collected:", userData);
 
-    // Step 4: Show loading state
-    const resultDiv = document.getElementById("itineraryResult");
-    const loadingDiv = document.getElementById("loadingMessage");
-    const errorDiv = document.getElementById("errorMessage");
+    // Step 4: Store data in sessionStorage and redirect to results page
+    sessionStorage.setItem('travelData', JSON.stringify(userData));
 
-    // Hide previous results and errors
-    resultDiv.style.display = "none";
-    errorDiv.style.display = "none";
-    // Show loading message
-    loadingDiv.style.display = "block";
-
-    try {
-        // Step 5: Send data to our backend server
-        // fetch() is the modern way to make HTTP requests in JavaScript
-        console.log("Sending request to backend...");
-        const response = await fetch('/generate-itinerary', {
-            method: 'POST', // We're sending data
-            headers: {
-                'Content-Type': 'application/json', // We're sending JSON
-            },
-            body: JSON.stringify(userData) // Convert userData object to JSON string
-        });
-
-        // Step 6: Check if the request was successful
-        if (!response.ok) {
-            throw new Error('Failed to generate itinerary');
-        }
-
-        // Step 7: Parse the response
-        const data = await response.json();
-        console.log("Received itinerary from backend!");
-
-        // Step 8: Display the itinerary
-        loadingDiv.style.display = "none";
-        resultDiv.innerHTML = formatItinerary(data.itinerary);
-        resultDiv.style.display = "block";
-
-        // Scroll to the result
-        resultDiv.scrollIntoView({ behavior: 'smooth' });
-
-    } catch (error) {
-        // If anything goes wrong, show an error message
-        console.error("Error:", error);
-        loadingDiv.style.display = "none";
-        errorDiv.textContent = "Sorry, there was an error generating your itinerary. Please try again.";
-        errorDiv.style.display = "block";
-    }
+    // Redirect to results page
+    window.location.href = 'results.html';
 });
-
-// ============================================
-// HELPER FUNCTION: Format Itinerary
-// ============================================
-// This converts the AI's text response into nicely formatted HTML
-function formatItinerary(text) {
-    // Convert line breaks to HTML and add some basic formatting
-    // You can enhance this to add more sophisticated formatting!
-    return text
-        .split('\n')
-        .map(line => {
-            // Make headers bold (lines that start with ** or #)
-            if (line.startsWith('**') || line.startsWith('#')) {
-                return `<h3>${line.replace(/\*\*/g, '').replace(/#/g, '')}</h3>`;
-            }
-            // Regular lines become paragraphs
-            return line ? `<p>${line}</p>` : '';
-        })
-        .join('');
-}

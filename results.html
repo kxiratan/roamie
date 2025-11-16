@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>roamie - your itinerary</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>your travel itinerary</h1>
+
+        <!-- Loading Message (shown while generating) -->
+        <div id="loadingMessage" style="display: block;">
+            <p>🤖 Generating your personalized itinerary...</p>
+            <p>This may take a few seconds!</p>
+        </div>
+
+        <!-- Error Message (hidden by default) -->
+        <div id="errorMessage" style="display: none;"></div>
+
+        <!-- Itinerary Result (hidden by default) -->
+        <div id="itineraryResult" style="display: none;">
+            <!-- Itinerary content will be inserted here -->
+        </div>
+
+        <!-- Back Button -->
+        <div id="backButtonContainer" style="display: none; text-align: center; margin-top: 2rem;">
+            <button onclick="window.location.href='index.html'" style="background-color: #3b3c3f; color: #EFDECD; padding: 0.7rem 1.5rem; border: none; border-radius: 0.5rem; cursor: pointer; font-size: 1rem; letter-spacing: 0.03rem;">
+                ← create new itinerary
+            </button>
+        </div>
+
+        <script src="results.js"></script>
+    </body>
+</html>
